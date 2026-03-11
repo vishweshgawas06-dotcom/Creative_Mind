@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GlowBook — Luxury Salon & Spa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#faf8f5;--white:#fff;--dark:#1a1410;--text:#2d2520;--muted:#8a7e78;
+  --border:#e8e0d8;--accent:#c9956e;--accent2:#8b5e52;--gold:#d4a853;
+  --font-d:'Cormorant Garamond',serif;--font-b:'DM Sans',sans-serif;
+  --shadow:0 4px 24px rgba(0,0,0,0.07);--shadow-lg:0 20px 60px rgba(0,0,0,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(250,248,245,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 4rem;height:70px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-d);font-size:1.6rem;font-weight:600;color:var(--dark);letter-spacing:1px;text-decoration:none}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:400;letter-spacing:0.5px;transition:color 0.2s}
+.nav-links a:hover{color:var(--text)}
+.nav-book{background:var(--dark);color:#fff;border:none;padding:0.65rem 1.5rem;font-family:var(--font-b);font-size:0.82rem;font-weight:500;cursor:pointer;letter-spacing:0.5px;transition:all 0.25s;text-decoration:none}
+.nav-book:hover{background:var(--accent)}
+.demo-badge{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--dark);color:#fff;font-size:0.7rem;padding:0.5rem 1rem;z-index:999;letter-spacing:0.5px;border-radius:2px}
+
+/* HERO */
+.hero{padding:8rem 4rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;min-height:100vh}
+.hero-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem}
+.hero-line{width:40px;height:1px;background:var(--accent)}
+.hero-eyebrow span{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:500}
+.hero h1{font-family:var(--font-d);font-size:4.5rem;font-weight:400;line-height:1.05;letter-spacing:-1px;margin-bottom:1.5rem;color:var(--dark)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{color:var(--muted);line-height:1.8;font-size:0.95rem;margin-bottom:2.5rem;max-width:420px}
+.hero-actions{display:flex;gap:1rem;align-items:center}
+.btn-primary{background:var(--dark);color:#fff;border:none;padding:1rem 2.2rem;font-family:var(--font-b);font-size:0.85rem;font-weight:500;cursor:pointer;letter-spacing:0.5px;transition:all 0.25s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--accent)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border);padding:1rem 2rem;font-family:var(--font-b);font-size:0.85rem;cursor:pointer;letter-spacing:0.5px;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-outline:hover{border-color:var(--text)}
+.hero-stats{display:flex;gap:3rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-val{font-family:var(--font-d);font-size:2.2rem;font-weight:600;color:var(--dark);display:block}
+.stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.5px}
+
+/* HERO RIGHT — booking card */
+.hero-right{position:relative}
+.booking-card{background:var(--white);border:1px solid var(--border);padding:2.5rem;box-shadow:var(--shadow-lg)}
+.bc-title{font-family:var(--font-d);font-size:1.6rem;font-weight:600;margin-bottom:0.25rem}
+.bc-sub{font-size:0.8rem;color:var(--muted);margin-bottom:2rem}
+.bc-field{margin-bottom:1.25rem}
+.bc-field label{display:block;font-size:0.72rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.bc-field select,.bc-field input{width:100%;border:1px solid var(--border);background:var(--bg);padding:0.8rem 1rem;font-family:var(--font-b);font-size:0.88rem;color:var(--text);outline:none;transition:border-color 0.2s;appearance:none}
+.bc-field select:focus,.bc-field input:focus{border-color:var(--accent)}
+.bc-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.time-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:0.5rem}
+.ts{padding:0.5rem;text-align:center;font-size:0.75rem;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;background:var(--white)}
+.ts:hover,.ts.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.ts.booked{background:var(--bg);color:var(--muted);cursor:not-allowed;text-decoration:line-through}
+.bc-confirm{width:100%;background:var(--accent);color:#fff;border:none;padding:1rem;font-family:var(--font-b);font-size:0.88rem;font-weight:500;cursor:pointer;letter-spacing:0.5px;margin-top:1.5rem;transition:all 0.2s}
+.bc-confirm:hover{background:var(--accent2)}
+
+/* floating decor */
+.hero-decor{position:absolute;top:-2rem;right:-2rem;width:200px;height:200px;border:1px solid var(--border);border-radius:50%;z-index:-1;opacity:0.4}
+.hero-decor2{position:absolute;bottom:-1rem;left:-1rem;width:80px;height:80px;background:var(--accent);opacity:0.08;border-radius:50%;z-index:-1}
+
+/* SERVICES */
+.services{padding:6rem 4rem;background:var(--dark)}
+.section-eyebrow{display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem}
+.section-eyebrow .line{width:30px;height:1px;background:var(--accent)}
+.section-eyebrow span{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent)}
+.section-h{font-family:var(--font-d);font-size:3rem;font-weight:400;color:#fff;margin-bottom:3.5rem;line-height:1.1}
+.section-h em{font-style:italic;color:var(--gold)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:rgba(255,255,255,0.08)}
+.svc-card{background:var(--dark);padding:2.5rem;transition:background 0.3s;cursor:pointer}
+.svc-card:hover{background:#2a1f1a}
+.svc-icon{width:48px;height:48px;border:1px solid rgba(201,149,110,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+.svc-icon svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.svc-name{font-family:var(--font-d);font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:0.5rem}
+.svc-desc{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:1.5rem}
+.svc-price{font-family:var(--font-d);font-size:1.8rem;font-weight:600;color:var(--gold)}
+.svc-dur{font-size:0.75rem;color:rgba(255,255,255,0.3);margin-top:0.25rem}
+
+/* TEAM */
+.team{padding:6rem 4rem;background:var(--white)}
+.team-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.team-card{cursor:pointer;transition:transform 0.3s}
+.team-card:hover{transform:translateY(-6px)}
+.team-img{aspect-ratio:3/4;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;position:relative;overflow:hidden}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:2rem;font-weight:600;color:#fff}
+.team-overlay{position:absolute;inset:0;background:rgba(26,20,16,0.8);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.3s}
+.team-card:hover .team-overlay{opacity:1}
+.team-book-btn{background:var(--accent);color:#fff;border:none;padding:0.75rem 1.5rem;font-family:var(--font-b);font-size:0.8rem;cursor:pointer;letter-spacing:0.5px}
+.team-name{font-family:var(--font-d);font-size:1.1rem;font-weight:600}
+.team-role{font-size:0.78rem;color:var(--muted);margin-top:0.2rem}
+.team-stars{color:var(--gold);font-size:0.75rem;margin-top:0.3rem;letter-spacing:1px}
+
+/* GALLERY */
+.gallery{padding:6rem 4rem;background:var(--bg)}
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:1rem;margin-top:3rem}
+.g-item{background:var(--border);overflow:hidden;position:relative;cursor:pointer}
+.g-item:first-child{grid-row:span 2}
+.g-inner{width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;transition:transform 0.4s}
+.g-item:hover .g-inner{transform:scale(1.04)}
+.g-label{position:absolute;bottom:1rem;left:1rem;background:rgba(250,248,245,0.9);padding:0.4rem 0.8rem;font-size:0.72rem;letter-spacing:1px;text-transform:uppercase;font-weight:500}
+
+/* TESTIMONIALS */
+.testimonials{padding:6rem 4rem;background:var(--dark)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.testi-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:2rem}
+.testi-stars{color:var(--gold);font-size:0.75rem;letter-spacing:2px;margin-bottom:1rem}
+.testi-text{font-family:var(--font-d);font-size:1.05rem;font-style:italic;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:1.5rem}
+.testi-author{font-size:0.78rem;color:rgba(255,255,255,0.35);letter-spacing:0.5px}
+.testi-author strong{color:rgba(255,255,255,0.6);display:block;margin-bottom:0.2rem;font-style:normal;font-family:var(--font-b)}
+
+/* FOOTER */
+footer{background:#100d0a;padding:3rem 4rem;display:flex;align-items:center;justify-content:space-between}
+.ft-logo{font-family:var(--font-d);font-size:1.4rem;color:#fff;text-decoration:none}
+.ft-logo span{color:var(--accent)}
+.ft-links{display:flex;gap:2rem}
+.ft-links a{color:rgba(255,255,255,0.3);text-decoration:none;font-size:0.8rem;transition:color 0.2s}
+.ft-links a:hover{color:rgba(255,255,255,0.7)}
+.ft-copy{font-size:0.75rem;color:rgba(255,255,255,0.2)}
+
+/* TOAST */
+.toast{position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dark);color:#fff;padding:0.8rem 1.5rem;font-size:0.82rem;letter-spacing:0.3px;opacity:0;transition:all 0.3s;z-index:999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .hero{grid-template-columns:1fr;padding:6rem 1.5rem 3rem;gap:2rem;min-height:auto}
+  .hero h1{font-size:2.8rem}
+  .svc-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-grid .g-item:first-child{grid-row:span 1}
+  footer{flex-direction:column;gap:1.5rem;text-align:center}
+  .hero-stats{gap:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Glow<span>Book</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="#" class="nav-book" onclick="showToast('Booking system — available in full version')">Book Now</a>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-line"></div>
+      <span>Luxury Salon & Spa</span>
+    </div>
+    <h1>Where Beauty<br/>Meets <em>Artistry</em></h1>
+    <p class="hero-sub">Experience bespoke hair, skin, and wellness treatments in a sanctuary designed for your transformation. Every visit, a masterpiece.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="showToast('Opening booking flow...');return false">Book Appointment</a>
+      <a href="#services" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+        View Services
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-val">2,400+</span><span class="stat-label">Happy Clients</span></div>
+      <div><span class="stat-val">12</span><span class="stat-label">Expert Stylists</span></div>
+      <div><span class="stat-val">4.9★</span><span class="stat-label">Average Rating</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-decor"></div>
+    <div class="hero-decor2"></div>
+    <div class="booking-card">
+      <div class="bc-title">Reserve Your Visit</div>
+      <div class="bc-sub">Complimentary consultation with every booking</div>
+      <div class="bc-field">
+        <label>Service</label>
+        <select onchange="showToast('Service selected: '+this.options[this.selectedIndex].text)">
+          <option>— Choose a service —</option>
+          <option>Signature Haircut & Style — ₹1,200</option>
+          <option>Luxury Hair Color — ₹3,500</option>
+          <option>Keratin Treatment — ₹5,500</option>
+          <option>Bridal Package — ₹12,000</option>
+          <option>Deep Tissue Massage — ₹2,200</option>
+          <option>Glow Facial — ₹1,800</option>
+        </select>
+      </div>
+      <div class="bc-row">
+        <div class="bc-field">
+          <label>Date</label>
+          <input type="date" id="bookDate"/>
+        </div>
+        <div class="bc-field">
+          <label>Stylist</label>
+          <select>
+            <option>Any Available</option>
+            <option>Priya S.</option>
+            <option>Meera K.</option>
+            <option>Ananya R.</option>
+            <option>Nisha P.</option>
+          </select>
+        </div>
+      </div>
+      <div class="bc-field">
+        <label>Available Slots</label>
+        <div class="time-slots">
+          <div class="ts booked">10:00</div>
+          <div class="ts active" onclick="selectSlot(this)">11:00</div>
+          <div class="ts" onclick="selectSlot(this)">12:00</div>
+          <div class="ts booked">13:00</div>
+          <div class="ts" onclick="selectSlot(this)">14:00</div>
+          <div class="ts" onclick="selectSlot(this)">15:00</div>
+          <div class="ts booked">16:00</div>
+          <div class="ts" onclick="selectSlot(this)">17:00</div>
+        </div>
+      </div>
+      <button class="bc-confirm" onclick="confirmBooking()">Confirm Booking →</button>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-eyebrow"><div class="line"></div><span>Our Offerings</span></div>
+  <h2 class="section-h">Treatments <em>Crafted</em><br/>for You</h2>
+  <div class="svc-grid">
+    <div class="svc-card" onclick="showToast('Book Haircare — from ₹800')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 12c0 1.66 1.34 3 3 3s3-1.34 3-3V5c0-1.1-.9-2-2-2h-2C9.9 3 9 3.9 9 5v7z"/><path d="M6 10.3c-.8.5-1.5 1.4-1.9 2.3C3.4 14 3 15.5 3 17c0 2.76 2.24 5 5 5 1.37 0 2.6-.55 3.5-1.44"/><path d="M18 10.3c.8.5 1.5 1.4 1.9 2.3.7 1.4 1.1 2.9 1.1 4.4 0 2.76-2.24 5-5 5-1.37 0-2.6-.55-3.5-1.44"/></svg></div>
+      <div class="svc-name">Haircare</div>
+      <div class="svc-desc">Cuts, colours, treatments, and styling by our master technicians using premium products.</div>
+      <div class="svc-price">From ₹800</div>
+      <div class="svc-dur">30 – 180 mins</div>
+    </div>
+    <div class="svc-card" onclick="showToast('Book Skincare — from ₹1,500')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="svc-name">Skincare</div>
+      <div class="svc-desc">Rejuvenating facials, peels, and glow treatments tailored to your skin type.</div>
+      <div class="svc-price">From ₹1,500</div>
+      <div class="svc-dur">45 – 90 mins</div>
+    </div>
+    <div class="svc-card" onclick="showToast('Book Wellness — from ₹2,000')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="svc-name">Wellness</div>
+      <div class="svc-desc">Swedish, deep tissue, and aromatherapy massages for complete rejuvenation.</div>
+      <div class="svc-price">From ₹2,000</div>
+      <div class="svc-dur">60 – 120 mins</div>
+    </div>
+    <div class="svc-card" onclick="showToast('Book Bridal Package — from ₹8,000')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></div>
+      <div class="svc-name">Bridal</div>
+      <div class="svc-desc">Complete bridal packages with trials, hair, makeup, and day-of glamour.</div>
+      <div class="svc-price">From ₹8,000</div>
+      <div class="svc-dur">Full Day</div>
+    </div>
+    <div class="svc-card" onclick="showToast('Book Nail Art — from ₹600')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></div>
+      <div class="svc-name">Nail Art</div>
+      <div class="svc-desc">Manicures, pedicures, gel extensions, and intricate nail art designs.</div>
+      <div class="svc-price">From ₹600</div>
+      <div class="svc-dur">30 – 90 mins</div>
+    </div>
+    <div class="svc-card" onclick="showToast('Book Makeup — from ₹2,500')">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <div class="svc-name">Makeup</div>
+      <div class="svc-desc">Professional makeup for events, shoots, parties, and everyday glamour.</div>
+      <div class="svc-price">From ₹2,500</div>
+      <div class="svc-dur">60 – 90 mins</div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="team-header">
+    <div>
+      <div class="section-eyebrow"><div class="line" style="background:var(--accent)"></div><span style="color:var(--accent)">Meet the Artists</span></div>
+      <h2 style="font-family:var(--font-d);font-size:2.8rem;font-weight:400;line-height:1.1">Our <em style="font-style:italic;color:var(--accent)">Expert</em> Team</h2>
+    </div>
+    <a href="#" class="btn-outline" onclick="showToast('View all 12 stylists');return false">View All Stylists →</a>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-avatar">P</div>
+        <div class="team-overlay"><button class="team-book-btn" onclick="showToast('Booking with Priya...')">Book Priya</button></div>
+      </div>
+      <div class="team-name">Priya Sharma</div>
+      <div class="team-role">Senior Hair Stylist</div>
+      <div class="team-stars">★★★★★ 4.9</div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#8b5e52,#c9956e)">M</div>
+        <div class="team-overlay"><button class="team-book-btn" onclick="showToast('Booking with Meera...')">Book Meera</button></div>
+      </div>
+      <div class="team-name">Meera Kapoor</div>
+      <div class="team-role">Skin Specialist</div>
+      <div class="team-stars">★★★★★ 5.0</div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#d4a853,#c9956e)">A</div>
+        <div class="team-overlay"><button class="team-book-btn" onclick="showToast('Booking with Ananya...')">Book Ananya</button></div>
+      </div>
+      <div class="team-name">Ananya Reddy</div>
+      <div class="team-role">Bridal Expert</div>
+      <div class="team-stars">★★★★★ 4.8</div>
+    </div>
+    <div class="team-card">
+      <div class="team-img">
+        <div class="team-avatar" style="background:linear-gradient(135deg,#5a4a42,#8b5e52)">N</div>
+        <div class="team-overlay"><button class="team-book-btn" onclick="showToast('Booking with Nisha...')">Book Nisha</button></div>
+      </div>
+      <div class="team-name">Nisha Patel</div>
+      <div class="team-role">Wellness Therapist</div>
+      <div class="team-stars">★★★★★ 4.9</div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <div class="section-eyebrow"><div class="line" style="background:var(--accent)"></div><span style="color:var(--accent)">Portfolio</span></div>
+  <h2 style="font-family:var(--font-d);font-size:2.8rem;font-weight:400">Our <em style="font-style:italic;color:var(--accent)">Work</em></h2>
+  <div class="gallery-grid">
+    <div class="g-item" onclick="showToast('Bridal Transformation')">
+      <div class="g-inner" style="min-height:420px;background:linear-gradient(160deg,#e8d5c4,#c9956e20);display:flex;align-items:center;justify-content:center">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#c9956e" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="g-label">Bridal Glam</div>
+    </div>
+    <div class="g-item" onclick="showToast('Hair Colour Work')">
+      <div class="g-inner" style="background:linear-gradient(160deg,#2d1a10,#4a2510);min-height:200px;display:flex;align-items:center;justify-content:center">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#d4a853" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12c0 1.66 1.34 3 3 3s3-1.34 3-3V5c0-1.1-.9-2-2-2h-2C9.9 3 9 3.9 9 5v7z"/></svg>
+      </div>
+      <div class="g-label">Hair Colour</div>
+    </div>
+    <div class="g-item" onclick="showToast('Skincare Treatment')">
+      <div class="g-inner" style="background:linear-gradient(160deg,#f5ede5,#e8d0be);min-height:200px;display:flex;align-items:center;justify-content:center">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#8b5e52" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="g-label">Glow Facial</div>
+    </div>
+    <div class="g-item" onclick="showToast('Nail Art Design')">
+      <div class="g-inner" style="background:linear-gradient(160deg,#1a1410,#2d2010);display:flex;align-items:center;justify-content:center">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#c9956e" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+      </div>
+      <div class="g-label">Nail Art</div>
+    </div>
+    <div class="g-item" onclick="showToast('Makeup Look')">
+      <div class="g-inner" style="background:linear-gradient(160deg,#e8e0d8,#d4c8bc);display:flex;align-items:center;justify-content:center">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#8b5e52" stroke-width="1" opacity="0.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg>
+      </div>
+      <div class="g-label">Editorial Makeup</div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="reviews">
+  <div class="section-eyebrow"><div class="line"></div><span>Client Stories</span></div>
+  <h2 class="section-h">What Our Clients <em>Say</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"Priya transformed my hair completely. The balayage is exactly what I envisioned. I've never felt more confident walking out of a salon."</div>
+      <div class="testi-author"><strong>Rhea Malhotra</strong>Mumbai · Hair Colour Client</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"My bridal package was pure perfection. Ananya understood my vision from the first trial. Every detail was flawless on my big day."</div>
+      <div class="testi-author"><strong>Sneha Iyer</strong>Bangalore · Bridal Client</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-text">"The Glow Facial has completely changed my skin. Meera recommended the perfect routine and my skin has never looked better."</div>
+      <div class="testi-author"><strong>Kavita Joshi</strong>Delhi · Skincare Client</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a href="#" class="ft-logo">Glow<span>Book</span></a>
+  <div class="ft-links">
+    <a href="#">Services</a><a href="#">Team</a><a href="#">Gallery</a>
+    <a href="#">Book Now</a><a href="#">Contact</a>
+  </div>
+  <div class="ft-copy">© 2025 GlowBook · Demo by Creative_Mind</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<div class="demo-badge">Demo by Creative_Mind</div>
+
+<script>
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500);
+}
+function selectSlot(el){
+  document.querySelectorAll('.ts').forEach(t=>{if(!t.classList.contains('booked'))t.classList.remove('active')});
+  el.classList.add('active');
+  showToast('Time slot selected: '+el.textContent);
+}
+function confirmBooking(){
+  const svc=document.querySelector('.booking-card select').value;
+  if(!svc){showToast('Please select a service first');return;}
+  showToast('Booking confirmed! Confirmation sent to your email ✓');
+}
+// Set min date to today
+document.getElementById('bookDate').min=new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>

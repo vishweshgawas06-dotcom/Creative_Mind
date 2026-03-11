@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>MediCare — Advanced Healthcare Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f8faff;--white:#fff;--dark:#0f1f3d;--border:#dce8f8;--text:#0f1f3d;--text2:#3d5278;--muted:#8098be;--accent:#1a5cf8;--accent2:#06b6d4;--light:#eef4ff;--green:#10b981;--font-d:'Merriweather',serif;--font-b:'Inter',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,250,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-d);font-size:1.3rem;font-weight:700;color:var(--dark);text-decoration:none;display:flex;align-items:center;gap:0.5rem}
+.logo-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}.nav-links a:hover{color:var(--text)}
+.nav-appt{background:var(--accent);color:#fff;border:none;padding:0.65rem 1.5rem;font-family:var(--font-b);font-size:0.82rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all 0.2s}
+.nav-appt:hover{background:#1348d4}
+.hero{padding:8rem 3rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(26,92,248,0.08);border:1px solid rgba(26,92,248,0.15);padding:0.4rem 1rem;border-radius:100px;font-size:0.75rem;font-weight:600;color:var(--accent);margin-bottom:1.5rem}
+.hero h1{font-family:var(--font-d);font-size:3.2rem;font-weight:700;line-height:1.15;margin-bottom:1.25rem;color:var(--dark)}
+.hero h1 span{color:var(--accent)}
+.hero-sub{color:var(--text2);line-height:1.8;font-size:0.92rem;margin-bottom:2rem;max-width:420px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn-primary{background:var(--accent);color:#fff;border:none;padding:0.9rem 2rem;font-family:var(--font-b);font-size:0.85rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:#1348d4}
+.btn-outline{background:transparent;color:var(--accent);border:1.5px solid var(--accent);padding:0.9rem 1.8rem;font-family:var(--font-b);font-size:0.85rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-outline:hover{background:var(--light)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;padding:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:12px}
+.h-stat{text-align:center}
+.h-stat-val{font-family:var(--font-d);font-size:1.8rem;font-weight:700;color:var(--accent);display:block}
+.h-stat-label{font-size:0.72rem;color:var(--muted);font-weight:500}
+.hero-right{display:flex;flex-direction:column;gap:1rem}
+.appt-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:0 8px 30px rgba(26,92,248,0.08)}
+.ac-title{font-size:1.1rem;font-weight:700;margin-bottom:0.25rem}
+.ac-sub{font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem}
+.ac-field{margin-bottom:1rem}
+.ac-field label{display:block;font-size:0.72rem;font-weight:600;color:var(--text2);margin-bottom:0.4rem;letter-spacing:0.3px}
+.ac-field select,.ac-field input{width:100%;border:1.5px solid var(--border);background:var(--bg);padding:0.75rem 1rem;font-family:var(--font-b);font-size:0.85rem;color:var(--text);outline:none;transition:border-color 0.2s;border-radius:8px;appearance:none}
+.ac-field select:focus,.ac-field input:focus{border-color:var(--accent)}
+.ac-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.ac-btn{width:100%;background:var(--accent);color:#fff;border:none;padding:0.9rem;font-family:var(--font-b);font-size:0.88rem;font-weight:600;cursor:pointer;border-radius:8px;margin-top:0.5rem;transition:all 0.2s}
+.ac-btn:hover{background:#1348d4}
+.avail-indicator{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--green);margin-top:0.75rem;font-weight:500}
+.avail-dot{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.services{padding:5rem 3rem;background:var(--white)}
+.sec-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:0.75rem;text-align:center}
+.sec-h{font-family:var(--font-d);font-size:2.5rem;font-weight:700;text-align:center;margin-bottom:3rem;line-height:1.15}
+.sec-h span{color:var(--accent)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.svc-card{border:1.5px solid var(--border);border-radius:12px;padding:1.75rem;cursor:pointer;transition:all 0.3s}
+.svc-card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(26,92,248,0.1);transform:translateY(-3px)}
+.svc-icon{width:48px;height:48px;background:var(--light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.svc-icon svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.svc-name{font-weight:700;font-size:1rem;margin-bottom:0.4rem}
+.svc-desc{font-size:0.78rem;color:var(--muted);line-height:1.7}
+.doctors{padding:5rem 3rem;background:var(--bg)}
+.doc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+.doc-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.3s;text-align:center}
+.doc-card:hover{border-color:var(--accent);box-shadow:0 8px 24px rgba(26,92,248,0.08);transform:translateY(-3px)}
+.doc-avatar{height:120px;background:linear-gradient(160deg,var(--light),var(--border));display:flex;align-items:center;justify-content:center}
+.doc-avatar-circle{width:70px;height:70px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:1.6rem;font-weight:700;color:#fff}
+.doc-body{padding:1.25rem}
+.doc-name{font-weight:700;font-size:0.9rem;margin-bottom:0.2rem}
+.doc-spec{font-size:0.75rem;color:var(--accent);font-weight:600;margin-bottom:0.5rem}
+.doc-exp{font-size:0.72rem;color:var(--muted)}
+.doc-rating{font-size:0.75rem;color:#f59e0b;margin-top:0.3rem;letter-spacing:1px}
+.doc-btn{width:calc(100% - 2rem);margin:0 1rem 1rem;background:var(--light);color:var(--accent);border:1px solid var(--border);padding:0.6rem;font-family:var(--font-b);font-size:0.78rem;font-weight:600;cursor:pointer;border-radius:8px;transition:all 0.2s}
+.doc-btn:hover{background:var(--accent);color:#fff}
+footer{background:var(--dark);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.ft-logo{font-family:var(--font-d);font-size:1.2rem;color:#fff;text-decoration:none}.ft-logo span{color:var(--accent2)}
+.ft-copy{font-size:0.75rem;color:rgba(255,255,255,0.3)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--dark);color:#fff;padding:0.75rem 1.5rem;font-size:0.82rem;border-radius:8px;opacity:0;transition:all 0.3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.demo-badge{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--accent);color:#fff;font-size:0.7rem;padding:0.5rem 1rem;z-index:999;border-radius:6px}
+@media(max-width:900px){nav{padding:0 1.5rem}.hero{grid-template-columns:1fr;padding:5rem 1.5rem 2rem}.hero h1{font-size:2.2rem}.svc-grid{grid-template-columns:1fr}.doc-grid{grid-template-columns:1fr 1fr}.services,.doctors{padding:3rem 1.5rem}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo"><div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>Medi<span>Care</span></a>
+  <ul class="nav-links"><li><a href="#services">Services</a></li><li><a href="#doctors">Doctors</a></li><li><a href="#">Diagnostics</a></li><li><a href="#">Health Plans</a></li></ul>
+  <button class="nav-appt" onclick="showToast('Opening appointment booking...')">Book Appointment</button>
+</nav>
+<section class="hero">
+  <div>
+    <div class="hero-pill">✦ 50,000+ patients treated since 2010</div>
+    <h1>Advanced Care,<br/><span>Compassionate</span><br/>Treatment</h1>
+    <p class="hero-sub">A multi-speciality clinic with India's finest doctors offering comprehensive healthcare, diagnostics, and wellness programs. Your health is our mission.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="showToast('Opening appointment booking...');return false">Book Appointment</a>
+      <a href="#" class="btn-outline" onclick="showToast('Video consultation available');return false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>Video Consult</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><span class="h-stat-val">50K+</span><span class="h-stat-label">Patients Treated</span></div>
+      <div class="h-stat"><span class="h-stat-val">42</span><span class="h-stat-label">Specialist Doctors</span></div>
+      <div class="h-stat"><span class="h-stat-val">4.9★</span><span class="h-stat-label">Patient Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="appt-card">
+      <div class="ac-title">Book an Appointment</div>
+      <div class="ac-sub">Available 7 days a week, 8 AM – 9 PM</div>
+      <div class="ac-field"><label>Department</label><select onchange="showToast(this.options[this.selectedIndex].text+' selected')"><option>— Select Department —</option><option>General Medicine</option><option>Cardiology</option><option>Orthopaedics</option><option>Dermatology</option><option>Gynaecology</option><option>Paediatrics</option><option>Neurology</option></select></div>
+      <div class="ac-field"><label>Doctor</label><select><option>— Any Available —</option><option>Dr. Arjun Mehta</option><option>Dr. Priya Sharma</option><option>Dr. Vikram Nair</option></select></div>
+      <div class="ac-row">
+        <div class="ac-field"><label>Date</label><input type="date"/></div>
+        <div class="ac-field"><label>Time Slot</label><select><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>2:00 PM</option><option>4:00 PM</option></select></div>
+      </div>
+      <div class="ac-field"><label>Patient Name</label><input type="text" placeholder="Full name"/></div>
+      <button class="ac-btn" onclick="showToast('Appointment booked! SMS confirmation sent ✓')">Confirm Appointment →</button>
+      <div class="avail-indicator"><span class="avail-dot"></span>Doctors available today</div>
+    </div>
+  </div>
+</section>
+<section class="services" id="services">
+  <div class="sec-label">Our Specialities</div>
+  <h2 class="sec-h">Comprehensive <span>Healthcare</span> Services</h2>
+  <div class="svc-grid">
+    <div class="svc-card" onclick="showToast('Cardiology — Book consultation')"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="svc-name">Cardiology</div><div class="svc-desc">Advanced heart care including ECG, Echo, stress tests, and cardiac consultations.</div></div>
+    <div class="svc-card" onclick="showToast('Orthopaedics — Book consultation')"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div><div class="svc-name">Orthopaedics</div><div class="svc-desc">Joint replacements, fracture care, spine treatments, and sports injuries.</div></div>
+    <div class="svc-card" onclick="showToast('Diagnostics — Book tests')"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="svc-name">Diagnostics</div><div class="svc-desc">MRI, CT scan, X-Ray, blood tests, and full-body health checkups.</div></div>
+    <div class="svc-card" onclick="showToast('Gynaecology — Book consultation')"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg></div><div class="svc-name">Gynaecology</div><div class="svc-desc">Comprehensive women's health, maternity care, and prenatal services.</div></div>
+    <div class="svc-card" onclick="showToast('Dermatology — Book consultation')"><div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="2.5"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="2.5"/></svg></div><div class="svc-name">Dermatology</div><div class="svc-desc">Skin conditions, hair & nail treatments, cosmetic dermatology.</div></div>
+    <div class="svc-card" onclick="showToast('Paediatrics — Book consultation')"><div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="svc-name">Paediatrics</div><div class="svc-desc">Child health, vaccinations, growth monitoring, and paediatric care.</div></div>
+  </div>
+</section>
+<section class="doctors" id="doctors">
+  <div style="text-align:center"><div class="sec-label">Our Doctors</div><h2 class="sec-h">Meet Our <span>Specialists</span></h2></div>
+  <div class="doc-grid">
+    <div class="doc-card"><div class="doc-avatar"><div class="doc-avatar-circle">A</div></div><div class="doc-body"><div class="doc-name">Dr. Arjun Mehta</div><div class="doc-spec">Cardiologist</div><div class="doc-exp">18 years experience</div><div class="doc-rating">★★★★★ 4.9</div></div><button class="doc-btn" onclick="showToast('Booking with Dr. Arjun Mehta...')">Book Consultation</button></div>
+    <div class="doc-card"><div class="doc-avatar" style="background:linear-gradient(160deg,#eef8f4,#d4ede8)"><div class="doc-avatar-circle" style="background:#0d9488">P</div></div><div class="doc-body"><div class="doc-name">Dr. Priya Sharma</div><div class="doc-spec">Gynaecologist</div><div class="doc-exp">14 years experience</div><div class="doc-rating">★★★★★ 5.0</div></div><button class="doc-btn" onclick="showToast('Booking with Dr. Priya Sharma...')">Book Consultation</button></div>
+    <div class="doc-card"><div class="doc-avatar" style="background:linear-gradient(160deg,#fef3ee,#fde8d8)"><div class="doc-avatar-circle" style="background:#ea580c">V</div></div><div class="doc-body"><div class="doc-name">Dr. Vikram Nair</div><div class="doc-spec">Orthopaedist</div><div class="doc-exp">22 years experience</div><div class="doc-rating">★★★★★ 4.8</div></div><button class="doc-btn" onclick="showToast('Booking with Dr. Vikram Nair...')">Book Consultation</button></div>
+    <div class="doc-card"><div class="doc-avatar" style="background:linear-gradient(160deg,#f5f0ff,#ede5ff)"><div class="doc-avatar-circle" style="background:#7c3aed">S</div></div><div class="doc-body"><div class="doc-name">Dr. Sunita Rao</div><div class="doc-spec">Dermatologist</div><div class="doc-exp">10 years experience</div><div class="doc-rating">★★★★★ 4.9</div></div><button class="doc-btn" onclick="showToast('Booking with Dr. Sunita Rao...')">Book Consultation</button></div>
+  </div>
+</section>
+<footer>
+  <a href="#" class="ft-logo">Medi<span>Care</span></a>
+  <div style="display:flex;gap:2rem"><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">Services</a><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">Doctors</a><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">Contact</a></div>
+  <div class="ft-copy">© 2025 MediCare · Demo by Creative_Mind</div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="demo-badge">Demo by Creative_Mind</div>
+<script>function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500)}</script>
+</body>
+</html>

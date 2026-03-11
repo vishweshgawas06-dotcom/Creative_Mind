@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Creative_Mind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* Fallback fonts if Google Fonts fails to load */
+    :root {
+      --font-d: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-b: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+  </style>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#f8f7f4;--bg2:#f0ede8;--white:#fff;--border:#e8e4de;--border2:#d4cfc8;--accent:#1a4dff;--accent2:#ff6b2b;--success:#22c55e;--danger:#ef4444;--text:#111018;--text2:#3d3a45;--muted:#8a8695;--font-d:'Playfair Display',serif;--font-b:'Outfit',sans-serif;--shadow:0 4px 24px rgba(0,0,0,0.07);--shadow-lg:0 20px 60px rgba(0,0,0,0.12)}
+    html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5rem;background:rgba(248,247,244,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .logo{font-family:var(--font-d);font-size:1.35rem;font-weight:900;color:var(--text);text-decoration:none}.logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}.nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-cta{background:#22c55e;color:#fff;border:none;padding:0.7rem 1.6rem;font-family:var(--font-b);font-weight:600;font-size:0.85rem;cursor:pointer;border-radius:3px;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem}.nav-cta:hover{background:#16a34a;transform:translateY(-1px)}
+
+    .eyebrow{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}.eyebrow::before{content:'';width:24px;height:2px;background:var(--accent)}
+
+    /* HERO */
+    .hero{padding:9rem 5rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:50px 50px;opacity:0.35;mask-image:radial-gradient(ellipse 60% 80% at 80% 50%,black 20%,transparent 75%)}
+    .hero h1{font-family:var(--font-d);font-size:clamp(2.5rem,4vw,4.5rem);font-weight:900;letter-spacing:-2px;line-height:1.0;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--muted)}
+    .hero-desc{color:var(--text2);line-height:1.75;font-size:0.95rem;margin-bottom:2.5rem}
+
+    /* Contact info cards */
+    .cinfo-cards{display:flex;flex-direction:column;gap:1rem}
+    .cinfo-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;transition:all 0.25s;text-decoration:none;color:var(--text)}
+    .cinfo-card:hover{border-color:var(--accent);box-shadow:0 8px 30px rgba(26,77,255,0.1);transform:translateX(4px)}
+    .cinfo-card.whatsapp:hover{border-color:#22c55e;box-shadow:0 8px 30px rgba(34,197,94,0.1)}
+    .ci-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+    .ci-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ci-icon svg{width:22px;height:22px}
+    .ci-icon.email{background:rgba(26,77,255,0.08);border:1px solid rgba(26,77,255,0.15);color:#1a4dff}
+    .ci-icon.wa{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2)}
+    .ci-icon.loc{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);color:#ef4444}
+    .ci-icon.time{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#d97706}
+    .ci-icon.wa{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.15)}
+    .ci-icon.loc{background:rgba(255,107,43,0.08);border:1px solid rgba(255,107,43,0.15)}
+    .ci-icon.time{background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15)}
+    .ci-label{font-size:0.72rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.15rem}
+    .ci-val{font-size:0.9rem;font-weight:500}
+    .ci-arrow{margin-left:auto;color:var(--muted);font-size:1rem;transition:transform 0.2s}
+    .cinfo-card:hover .ci-arrow{transform:translateX(4px);color:var(--accent)}
+
+    .avail-strip{background:rgba(34,197,94,0.08);border:1.5px solid rgba(34,197,94,0.2);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;margin-top:1.5rem;font-size:0.88rem;font-weight:500;color:#15803d}
+    .avail-dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+
+    /* FORM */
+    .contact-form{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:3rem;box-shadow:var(--shadow-lg);position:relative}
+    .contact-form::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:0 0 4px 4px}
+    .form-title{font-family:var(--font-d);font-size:1.5rem;font-weight:900;margin-bottom:0.5rem}
+    .form-sub{color:var(--muted);font-size:0.85rem;margin-bottom:2rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.2rem}
+    .form-group label{font-size:0.78rem;font-weight:600;color:var(--text2);letter-spacing:0.3px}
+    .form-group label span{color:var(--danger)}
+    .form-group input,.form-group textarea,.form-group select{background:var(--bg);border:1.5px solid var(--border);color:var(--text);padding:0.85rem 1rem;border-radius:8px;font-family:var(--font-b);font-size:0.9rem;outline:none;transition:border-color 0.2s,box-shadow 0.2s;appearance:none}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,77,255,0.1);background:var(--white)}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:var(--muted)}
+    .form-group textarea{resize:vertical;min-height:130px}
+    .form-group.error input,.form-group.error textarea,.form-group.error select{border-color:var(--danger)}
+    .err-msg{font-size:0.75rem;color:var(--danger);margin-top:0.25rem;display:none}
+    .form-group.error .err-msg{display:block}
+
+    .budget-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem}
+    .budget-opt{cursor:pointer}
+    .budget-opt input{display:none}
+    .budget-label{display:block;text-align:center;padding:0.6rem 0.5rem;border:1.5px solid var(--border);border-radius:8px;font-size:0.8rem;font-weight:600;color:#111;transition:all 0.2s;cursor:pointer}
+    .budget-opt input:checked + .budget-label{background:rgba(26,77,255,0.08);border-color:var(--accent);color:var(--accent)}
+    .budget-label:hover{border-color:#555;color:#111;background:#f5f5f5}
+
+    .submit-btn{width:100%;padding:1.1rem;border:none;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--font-b);font-weight:700;font-size:1rem;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:0.5rem}
+    .submit-btn:hover:not(:disabled){background:#0a3de0;transform:translateY(-2px);box-shadow:0 12px 40px rgba(26,77,255,0.3)}
+    .submit-btn:disabled{opacity:0.7;cursor:not-allowed;transform:none}
+    .submit-btn .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite;display:none}
+    .submit-btn.loading .btn-text{display:none}
+    .submit-btn.loading .spinner{display:block}
+    .form-note{text-align:center;margin-top:0.75rem;font-size:0.75rem;color:var(--muted)}
+
+    /* SUCCESS / ERROR STATE */
+    .form-success{display:none;text-align:center;padding:2rem}
+    .fs-icon{margin-bottom:1rem;display:flex;align-items:center;justify-content:center}
+    .fs-title{font-family:var(--font-d);font-size:1.8rem;font-weight:900;color:var(--success);margin-bottom:0.75rem}
+    .fs-text{color:var(--text2);line-height:1.7;margin-bottom:2rem}
+    .form-error-banner{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:1rem;font-size:0.85rem;color:var(--danger);margin-top:1rem;display:none}
+
+    /* PROCESS STRIP */
+    .process-strip{padding:5rem 5rem;background:var(--bg2);border-top:1px solid var(--border)}
+    .ps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+    .ps-item{text-align:center}
+    .ps-num{font-family:var(--font-d);font-size:3rem;font-weight:900;color:var(--border2);line-height:1;margin-bottom:0.5rem}
+    .ps-icon{font-size:1.8rem;margin-bottom:0.75rem}
+    .ps-title{font-family:var(--font-d);font-size:1.05rem;font-weight:700;margin-bottom:0.4rem}
+    .ps-text{color:var(--muted);font-size:0.85rem;line-height:1.6}
+
+    /* FAQ */
+    .mini-faq{padding:5rem 5rem;border-top:1px solid var(--border)}
+    .mfaq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+    .mfaq-item{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:1.25rem;transition:all 0.2s}
+    .mfaq-item:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+    .mfaq-q{font-weight:600;font-size:0.88rem;margin-bottom:0.4rem;color:var(--text)}
+    .mfaq-a{color:var(--muted);font-size:0.82rem;line-height:1.5}
+
+    footer{background:var(--text);color:rgba(255,255,255,0.4);padding:2rem 5rem;display:flex;align-items:center;justify-content:space-between;font-size:0.82rem}
+    .footer-logo{font-family:var(--font-d);font-weight:900;color:#fff;font-size:1.1rem;text-decoration:none}.footer-logo span{color:var(--accent)}
+    .footer-links{display:flex;gap:2rem}.footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}.footer-links a:hover{color:#fff}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .reveal{opacity:1;transform:translateY(0);transition:opacity 0.6s ease,transform 0.6s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:960px){
+      nav{padding:1.1rem 1.5rem}.nav-links{display:none}
+      .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:3rem}
+      .process-strip,.mini-faq{padding:4rem 1.5rem}
+      .ps-grid{grid-template-columns:1fr}
+      .mfaq-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .budget-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-form{padding:2rem}
+      footer{flex-direction:column;gap:1rem;padding:1.5rem;text-align:center}
+      .footer-links{flex-wrap:wrap;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Creative<span>_Mind</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/919834277852" target="_blank" class="nav-cta"><svg viewBox="0 0 24 24" width="15" height="15" fill="white"><path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.57A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/><path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.19-.57-.34z" fill="rgba(0,0,0,0.15)"/></svg> WhatsApp</a>
+</nav>
+
+<section class="hero">
+  <div style="animation:fadeUp 0.5s ease both">
+    <div class="eyebrow">Let's Talk</div>
+    <h1>Tell me about<br/>your <em>project</em></h1>
+    <p class="hero-desc">Have an idea? Need a website? Want to scale your business online? I'd love to hear about it. Fill in the form or reach out directly — I reply within 24 hours.</p>
+    <div class="cinfo-cards">
+      <a href="mailto:creativemind2601@gmail.com" class="cinfo-card">
+        <div class="ci-icon email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+  <rect x="2" y="4" width="20" height="16" rx="2"/>
+  <polyline points="2,4 12,13 22,4"/>
+</svg></div>
+        <div><div class="ci-label">Email</div><div class="ci-val">creativemind2601@gmail.com</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+      <a href="https://wa.me/919834277852" target="_blank" class="cinfo-card whatsapp">
+        <div class="ci-icon wa"><svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+  <path d="M20.52 3.48A11.94 11.94 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.57A11.94 11.94 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z" fill="#22c55e"/>
+  <path d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.68-1.63-.93-2.23-.24-.58-.49-.5-.68-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.19-.57-.34z" fill="#fff"/>
+</svg></div>
+        <div><div class="ci-label">WhatsApp (Fastest)</div><div class="ci-val">+91 98342 77852</div></div>
+        <span class="ci-arrow">→</span>
+      </a>
+      <div class="cinfo-card" style="cursor:default">
+        <div class="ci-icon loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+  <circle cx="12" cy="9" r="2.5"/>
+</svg></div>
+        <div><div class="ci-label">Location</div><div class="ci-val">India · Available Worldwide</div></div>
+      </div>
+      <div class="cinfo-card" style="cursor:default">
+        <div class="ci-icon time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12,6 12,12 16,14"/>
+</svg></div>
+        <div><div class="ci-label">Response Time</div><div class="ci-val">Within 24 hours · Usually faster</div></div>
+      </div>
+    </div>
+    <div class="avail-strip">
+      <span class="avail-dot"></span>
+      Currently available for new projects — taking on clients now!
+    </div>
+  </div>
+
+  <div style="animation:fadeUp 0.5s 0.15s ease both">
+    <div class="contact-form" id="contactFormWrap">
+      <div id="formContent">
+        <form name="contact" id="netlifyForm" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="contact"/>
+        <p style="display:none"><label>Don't fill this: <input name="bot-field"/></label></p>
+        <div class="form-title">Send me a message</div>
+        <p class="form-sub">I'll get back to you within 24 hours with honest advice and a clear quote.</p>
+
+        <div class="form-row">
+          <div class="form-group" id="fg-name">
+            <label>Your Name <span>*</span></label>
+            <input type="text" id="f-name" name="name" name="name" placeholder="John Doe"/>
+            <div class="err-msg">Please enter your name</div>
+          </div>
+          <div class="form-group" id="fg-email">
+            <label>Email Address <span>*</span></label>
+            <input type="email" id="f-email" name="email" name="email" placeholder="john@email.com"/>
+            <div class="err-msg">Please enter a valid email</div>
+          </div>
+        </div>
+
+        <div class="form-group" id="fg-service">
+          <label>Service Needed <span>*</span></label>
+          <select id="f-service" name="service">
+            <option value="">— Select a service —</option>
+            <option>E-Commerce Store</option>
+            <option>Custom Web Application</option>
+            <option>Business Website</option>
+            <option>Booking System</option>
+            <option>Admin Dashboard</option>
+            <option>Maintenance & Support</option>
+            <option>Something Else</option>
+          </select>
+          <div class="err-msg">Please select a service</div>
+        </div>
+
+        <div class="form-group">
+          <label>Budget Range</label>
+          <div class="budget-grid">
+            <label class="budget-opt"><input type="radio" name="budget" value="Under $200"/><span class="budget-label">Under $200</span></label>
+            <label class="budget-opt"><input type="radio" name="budget" value="$200–$500"/><span class="budget-label">$200–$500</span></label>
+            <label class="budget-opt"><input type="radio" name="budget" value="$500–$1,000"/><span class="budget-label">$500–$1K</span></label>
+            <label class="budget-opt"><input type="radio" name="budget" value="$1,000–$2,500"/><span class="budget-label">$1K–$2.5K</span></label>
+            <label class="budget-opt"><input type="radio" name="budget" value="$2,500+"/><span class="budget-label">$2.5K+</span></label>
+            <label class="budget-opt"><input type="radio" name="budget" value="Not sure yet"/><span class="budget-label">Not sure</span></label>
+          </div>
+        </div>
+
+        <div class="form-group" id="fg-msg">
+          <label>Project Details <span>*</span></label>
+          <textarea id="f-msg" name="message" name="message" placeholder="Tell me about your project — what you need, your goals, any deadline, and anything else that would help me understand your vision…"></textarea>
+          <div class="err-msg">Please describe your project</div>
+        </div>
+
+        <button class="submit-btn" id="submitBtn" type="submit">
+          <span class="btn-text">Send Message — I'll reply within 24hrs →</span>
+          <div class="spinner"></div>
+        </button>
+        <div class="form-error-banner" id="formError">Something went wrong. Please try WhatsApp or email directly.</div>
+        <p class="form-note" style="display:flex;align-items:center;justify-content:center;gap:0.4rem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+  <rect x="5" y="11" width="14" height="10" rx="2"/>
+  <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+  <circle cx="12" cy="16" r="1" fill="currentColor"/>
+</svg> Your details are safe. No spam, ever.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="fs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="56" height="56">
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="7,12 10,15 17,9"/>
+</svg></div>
+        <div class="fs-title">Message Sent!</div>
+        <p class="fs-text">Thank you for reaching out! I've received your message and will get back to you at <strong id="fs-email-echo"></strong> within 24 hours.<br/><br/>In a hurry? <a href="https://wa.me/919834277852" target="_blank" style="color:var(--accent)">WhatsApp me</a> for a faster response.</p>
+        <a href="portfolio.html" style="display:inline-block;background:var(--accent);color:#fff;padding:0.9rem 2rem;border-radius:8px;font-weight:600;text-decoration:none;transition:all 0.25s" onmouseover="this.style.background='#0a3de0'" onmouseout="this.style.background='var(--accent)'">View My Work →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<div class="process-strip">
+  <div class="eyebrow reveal">What Happens Next</div>
+  <h2 style="font-family:var(--font-d);font-size:2rem;font-weight:900;letter-spacing:-1px" class="reveal">After you hit <em>Send</em></h2>
+  <div class="ps-grid">
+    <div class="ps-item reveal">
+      <div class="ps-num">01</div>
+      <div class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+  <path d="M2 13.5V20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6.5"/>
+  <path d="M2 13.5L12 3l10 10.5"/>
+  <path d="M9 22V12h6v10"/>
+</svg></div>
+      <div class="ps-title">I Read Your Message</div>
+      <p class="ps-text">I personally read every message. No bots, no assistants. Just me, understanding your project.</p>
+    </div>
+    <div class="ps-item reveal">
+      <div class="ps-num">02</div>
+      <div class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12,6 12,12 16,14"/>
+  <path d="M8 6 L4 2 M8 6 L4 10" stroke-width="1.5"/>
+</svg></div>
+      <div class="ps-title">I Reply Within 24 Hours</div>
+      <p class="ps-text">You'll get a thoughtful reply with questions, suggestions, or a preliminary quote. Usually much faster.</p>
+    </div>
+    <div class="ps-item reveal">
+      <div class="ps-num">03</div>
+      <div class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
+  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+</svg></div>
+      <div class="ps-title">We Start Building</div>
+      <p class="ps-text">Once we agree on scope and price, I start immediately. Your project gets my full focus.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MINI FAQ -->
+<div class="mini-faq">
+  <div class="eyebrow reveal">Quick Answers</div>
+  <h2 style="font-family:var(--font-d);font-size:2rem;font-weight:900;letter-spacing:-1px" class="reveal">Before you reach <em>out</em></h2>
+  <div class="mfaq-grid">
+    <div class="mfaq-item reveal"><div class="mfaq-q">Do you work with international clients?</div><p class="mfaq-a">Absolutely! I work with clients from the UK, USA, UAE, Australia, and more. Communication is in English and payments via PayPal or Stripe.</p></div>
+    <div class="mfaq-item reveal"><div class="mfaq-q">What's the payment method?</div><p class="mfaq-a">50% upfront, 50% on delivery. I accept PayPal, bank transfer, and UPI (for Indian clients).</p></div>
+    <div class="mfaq-item reveal"><div class="mfaq-q">How many revisions do I get?</div><p class="mfaq-a">Unlimited revisions during development. After delivery, free support period (15–45 days based on plan) covers any issues.</p></div>
+    <div class="mfaq-item reveal"><div class="mfaq-q">I don't have a clear idea yet — is that okay?</div><p class="mfaq-a">100% okay! Just tell me the problem you're trying to solve. We'll figure out the solution together on a free call.</p></div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">Creative<span>_Mind</span></a>
+  <p>© 2025 Creative_Mind · Made with ❤️ in India</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a><a href="about.html">About</a>
+  </div>
+</footer>
+
+<script>
+  // ── NETLIFY FORMS HANDLER ────────────────────────────────────────
+  function validate(){
+    let ok = true;
+    const fields = [
+      {id:'f-name',   fg:'fg-name',    check: v => v.trim().length > 1},
+      {id:'f-email',  fg:'fg-email',   check: v => v.includes('@') && v.includes('.')},
+      {id:'f-service',fg:'fg-service', check: v => v !== ''},
+      {id:'f-msg',    fg:'fg-msg',     check: v => v.trim().length > 5},
+    ];
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const fg = document.getElementById(f.fg);
+      if(fg){ if(!f.check(el.value)){ fg.classList.add('error'); ok=false; } else fg.classList.remove('error'); }
+    });
+    return ok;
+  }
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    if(!validate()) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading'); btn.disabled = true;
+    document.getElementById('formError').style.display = 'none';
+
+    const budget = document.querySelector('input[name="budget"]:checked');
+    const formData = new FormData();
+    formData.append('form-name', 'contact');
+    formData.append('name',    document.getElementById('f-name').value.trim());
+    formData.append('email',   document.getElementById('f-email').value.trim());
+    formData.append('service', document.getElementById('f-service').value);
+    formData.append('budget',  budget ? budget.value : 'Not specified');
+    formData.append('message', document.getElementById('f-msg').value.trim());
+
+    try {
+      const res = await fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body: new URLSearchParams(formData).toString() });
+      if(res.ok){
+        document.getElementById('formContent').style.display = 'none';
+        const echo = document.getElementById('fs-email-echo');
+        if(echo) echo.textContent = document.getElementById('f-email').value.trim();
+        document.getElementById('formSuccess').style.display = 'block';
+      } else { throw new Error('Failed'); }
+    } catch(err){
+      document.getElementById('formError').style.display = 'block';
+      btn.classList.remove('loading'); btn.disabled = false;
+    }
+  }
+
+  // Pre-select plan from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const plan = urlParams.get('plan')

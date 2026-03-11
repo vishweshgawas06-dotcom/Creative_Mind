@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing — Creative_Mind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    /* Fallback fonts if Google Fonts fails to load */
+    :root {
+      --font-d: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-b: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+  </style>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#f8f7f4;--bg2:#f0ede8;--white:#fff;--border:#e8e4de;--border2:#d4cfc8;--accent:#1a4dff;--accent2:#ff6b2b;--danger:#ef4444;--success:#22c55e;--text:#111018;--text2:#3d3a45;--muted:#8a8695;--font-d:'Playfair Display',serif;--font-b:'Outfit',sans-serif;--shadow:0 4px 24px rgba(0,0,0,0.07);--shadow-lg:0 20px 60px rgba(0,0,0,0.12)}
+    html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--font-b);font-weight:300;overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 5rem;background:rgba(248,247,244,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .logo{font-family:var(--font-d);font-size:1.35rem;font-weight:900;color:var(--text);text-decoration:none}.logo span{color:var(--accent)}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s}.nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-cta{background:var(--text);color:#fff;border:none;padding:0.7rem 1.6rem;font-family:var(--font-b);font-weight:600;font-size:0.85rem;cursor:pointer;border-radius:3px;transition:all 0.25s;text-decoration:none}.nav-cta:hover{background:var(--accent);transform:translateY(-1px)}
+
+    /* URGENCY BANNER */
+    .urgency-bar{background:linear-gradient(90deg,var(--danger),#c81e1e);color:#fff;text-align:center;padding:0.75rem;font-size:0.85rem;font-weight:500;position:sticky;top:0;z-index:199;display:flex;align-items:center;justify-content:center;gap:1rem}
+    .urgency-bar strong{font-weight:700}
+    .countdown{display:flex;gap:0.5rem;align-items:center}
+    .cd-block{background:rgba(0,0,0,0.25);padding:0.2rem 0.5rem;border-radius:4px;font-family:var(--font-d);font-weight:700;font-size:1rem;min-width:36px;text-align:center}
+    .cd-sep{font-weight:700;opacity:0.6}
+
+    /* HERO */
+    .hero{padding:10rem 5rem 5rem;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:50px 50px;opacity:0.4;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black 30%,transparent 80%)}
+    .eyebrow{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.78rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}.eyebrow::before{content:'';width:24px;height:2px;background:var(--accent)}
+    .hero h1{font-family:var(--font-d);font-size:clamp(3rem,5vw,5.5rem);font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:1.2rem}.hero h1 em{font-style:italic;color:var(--muted)}
+    .hero p{color:var(--text2);font-size:1.05rem;line-height:1.7;max-width:520px;margin:0 auto 1.5rem}
+    .discount-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(239,68,68,0.1);border:1.5px solid rgba(239,68,68,0.25);color:var(--danger);padding:0.5rem 1.2rem;border-radius:100px;font-size:0.85rem;font-weight:600;margin-bottom:3rem;animation:pulse 2s infinite}
+    .db-dot{width:8px;height:8px;background:var(--danger);border-radius:50%;animation:pulse 1.5s infinite}
+
+    /* TOGGLE */
+    .toggle-wrap{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:4rem}
+    .toggle-label{font-size:0.9rem;font-weight:500;color:var(--muted)}
+    .toggle-label.active{color:var(--text)}
+    .toggle{width:52px;height:28px;background:var(--border2);border-radius:100px;position:relative;cursor:pointer;transition:background 0.25s}
+    .toggle.on{background:var(--accent)}
+    .toggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform 0.25s;box-shadow:0 2px 6px rgba(0,0,0,0.15)}
+    .toggle.on::after{transform:translateX(24px)}
+    .save-badge{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:var(--success);padding:0.25rem 0.6rem;border-radius:100px;font-size:0.75rem;font-weight:600}
+
+    /* PRICING CARDS */
+    .pricing-section{padding:0 5rem 7rem}
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;align-items:start}
+    .price-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2.5rem;position:relative;transition:all 0.3s}
+    .price-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+    .price-card.popular{border-color:var(--accent);transform:scale(1.04);box-shadow:var(--shadow-lg)}
+    .price-card.popular:hover{transform:scale(1.04) translateY(-4px)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:0.35rem 1.2rem;border-radius:100px;font-size:0.75rem;font-weight:700;letter-spacing:0.5px;white-space:nowrap}
+    .pc-tier{font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem}
+    .pc-name{font-family:var(--font-d);font-size:1.5rem;font-weight:900;margin-bottom:0.5rem}
+    .pc-desc{color:var(--muted);font-size:0.85rem;line-height:1.5;margin-bottom:1.5rem;min-height:40px}
+    .pc-price-wrap{margin-bottom:0.5rem}
+    .pc-original{font-size:0.95rem;color:var(--muted);text-decoration:line-through;margin-bottom:0.2rem}
+    .pc-price{display:flex;align-items:flex-end;gap:0.25rem;margin-bottom:0.25rem}
+    .pc-curr{font-size:1.2rem;font-weight:600;color:var(--text);padding-bottom:0.4rem}
+    .pc-amount{font-family:var(--font-d);font-size:3.2rem;font-weight:900;color:var(--text);line-height:1}
+    .pc-amount.popular-price{color:var(--accent)}
+    .pc-note{font-size:0.78rem;color:var(--muted);margin-bottom:1.5rem}
+    .pc-save{display:inline-block;background:rgba(239,68,68,0.1);color:var(--danger);padding:0.25rem 0.6rem;border-radius:100px;font-size:0.75rem;font-weight:700;margin-bottom:1.5rem}
+    .pc-divider{height:1px;background:var(--border);margin:1.5rem 0}
+    .pc-features{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:2rem}
+    .pc-features li{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--text2);line-height:1.4}
+    .pc-features li .check{color:var(--success);font-size:0.9rem;flex-shrink:0;margin-top:0.05rem}
+    .pc-features li .cross{color:var(--border2);font-size:0.9rem;flex-shrink:0}
+    .pc-features li.muted-feat{color:var(--muted)}
+    .pc-btn{width:100%;padding:1rem;border:none;border-radius:8px;font-family:var(--font-b);font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:block;text-align:center}
+    .pc-btn.primary{background:var(--accent);color:#fff}.pc-btn.primary:hover{background:#0a3de0;transform:translateY(-1px);box-shadow:0 8px 30px rgba(26,77,255,0.3)}
+    .pc-btn.outline{background:transparent;color:var(--text);border:1.5px solid var(--border2)}.pc-btn.outline:hover{border-color:var(--accent);color:var(--accent)}
+    .pc-timeline{display:flex;align-items:center;gap:0.5rem;margin-top:1rem;justify-content:center;font-size:0.78rem;color:var(--muted)}
+    .pc-timeline::before{content:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>'}
+
+    /* ADD-ONS */
+    .addons{padding:0 5rem 5rem}
+    .addons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+    .addon-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;transition:all 0.25s}
+    .addon-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+    .addon-icon{font-size:1.8rem;margin-bottom:0.75rem}
+    .addon-name{font-family:var(--font-d);font-size:1rem;font-weight:700;margin-bottom:0.4rem}
+    .addon-desc{color:var(--muted);font-size:0.82rem;line-height:1.5;margin-bottom:1rem}
+    .addon-price{font-family:var(--font-d);font-weight:700;font-size:1.1rem;color:var(--accent2)}
+
+    /* FAQ */
+    .faq{padding:0 5rem 7rem}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+    .faq-item{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.5rem;cursor:pointer;transition:all 0.25s}
+    .faq-item:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+    .faq-q{font-family:var(--font-d);font-size:1rem;font-weight:700;margin-bottom:0.6rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+    .faq-icon{color:var(--accent);flex-shrink:0;font-size:1.1rem}
+    .faq-a{color:var(--muted);font-size:0.88rem;line-height:1.65}
+
+    /* GUARANTEE */
+    .guarantee{margin:0 5rem 5rem;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #bbf7d0;border-radius:16px;padding:3rem;display:flex;align-items:center;gap:3rem}
+    .g-icon{font-size:4rem;flex-shrink:0}
+    .g-title{font-family:var(--font-d);font-size:1.8rem;font-weight:900;color:#15803d;margin-bottom:0.5rem}
+    .g-text{color:#166534;font-size:0.95rem;line-height:1.7}
+
+    /* FOOTER */
+    footer{background:var(--text);color:rgba(255,255,255,0.4);padding:2rem 5rem;display:flex;align-items:center;justify-content:space-between;font-size:0.82rem}
+    .footer-logo{font-family:var(--font-d);font-weight:900;color:#fff;font-size:1.1rem;text-decoration:none}.footer-logo span{color:var(--accent)}
+    .footer-links{display:flex;gap:2rem}.footer-links a{color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s}.footer-links a:hover{color:#fff}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    .reveal{opacity:1;transform:translateY(0);transition:opacity 0.6s ease,transform 0.6s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:960px){
+      nav{padding:1.1rem 1.5rem}.nav-links{display:none}
+      .hero{padding:8rem 1.5rem 3rem}
+      .pricing-section,.addons,.faq{padding:0 1.5rem 4rem}
+      .pricing-grid{grid-template-columns:1fr}
+      .price-card.popular{transform:none}
+      .addons-grid{grid-template-columns:1fr 1fr}
+      .faq-grid{grid-template-columns:1fr}
+      .guarantee{margin:0 1.5rem 4rem;flex-direction:column;text-align:center;gap:1rem;padding:2rem}
+      footer{flex-direction:column;gap:1rem;padding:1.5rem;text-align:center}
+      .footer-links{flex-wrap:wrap;justify-content:center}
+      .urgency-bar{flex-direction:column;gap:0.3rem;padding:0.75rem 1rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <span>🔥 <strong>LIMITED TIME:</strong> Get 10% OFF this week only —</span>
+  <div class="countdown">
+    <div class="cd-block" id="cd-d">00</div><span class="cd-sep">d</span>
+    <div class="cd-block" id="cd-h">00</div><span class="cd-sep">h</span>
+    <div class="cd-block" id="cd-m">00</div><span class="cd-sep">m</span>
+    <div class="cd-block" id="cd-s">00</div><span class="cd-sep">s</span>
+  </div>
+  <span>— Use code <strong>CMIND10</strong> at checkout</span>
+</div>
+
+<nav>
+  <a href="index.html" class="logo">Creative<span>_Mind</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="pricing.html" class="active">Pricing</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Hire Me →</a>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow" style="animation:fadeUp 0.5s ease both">Transparent Pricing</div>
+  <h1 style="animation:fadeUp 0.5s 0.1s ease both">Simple prices.<br/><em>No surprises.</em></h1>
+  <p style="animation:fadeUp 0.5s 0.2s ease both">Fixed-price packages built for Indian and international businesses. What you see is what you pay.</p>
+  <div class="discount-badge" style="animation:fadeUp 0.5s 0.3s ease both"><span class="db-dot"></span> <svg viewBox="0 0 24 24" width="20" height="20" fill="#22c55e" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9,12 11,14 15,10"/></svg> This week only: 10% OFF all packages — Limited spots!</div>
+
+  <div class="toggle-wrap" style="animation:fadeUp 0.5s 0.35s ease both">
+    <span class="toggle-label active" id="lbl-usd">USD ($)</span>
+    <div class="toggle" id="currToggle" onclick="toggleCurrency()"></div>
+    <span class="toggle-label" id="lbl-inr">INR (₹)</span>
+    <span class="save-badge">Indian rates available</span>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="pricing-section">
+  <div class="pricing-grid">
+
+    <!-- STARTER -->
+    <div class="price-card reveal">
+      <div class="pc-tier">Starter</div>
+      <div class="pc-name">Business Website</div>
+      <div class="pc-desc">Perfect for small businesses that need a professional online presence fast.</div>
+      <div class="pc-price-wrap">
+        <div class="pc-original" id="starter-orig">Was $220</div>
+        <div class="pc-price"><span class="pc-curr" id="starter-curr">$</span><span class="pc-amount" id="starter-price">198</span></div>
+        <div class="pc-note" id="starter-note">One-time payment · No hidden fees</div>
+        <div class="pc-save">Save $22 this week!</div>
+      </div>
+      <a href="contact.html?plan=starter" class="pc-btn outline">Get Started →</a>
+      <div class="pc-timeline">Delivered in 5–7 days</div>
+      <div class="pc-divider"></div>
+      <ul class="pc-features">
+        <li><span class="check">✓</span> Up to 5 pages</li>
+        <li><span class="check">✓</span> Mobile responsive design</li>
+        <li><span class="check">✓</span> Contact form</li>
+        <li><span class="check">✓</span> Google Maps integration</li>
+        <li><span class="check">✓</span> Basic SEO setup</li>
+        <li><span class="check">✓</span> 15-day free support</li>
+        <li class="muted-feat"><span class="cross">✗</span> Payment gateway</li>
+        <li class="muted-feat"><span class="cross">✗</span> User login system</li>
+        <li class="muted-feat"><span class="cross">✗</span> Admin dashboard</li>
+      </ul>
+    </div>
+
+    <!-- POPULAR -->
+    <div class="price-card popular reveal">
+      <div class="popular-badge"><svg viewBox="0 0 24 24" width="16" height="16" fill="#f59e0b" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg> Most Popular</div>
+      <div class="pc-tier">Professional</div>
+      <div class="pc-name">E-Commerce Store</div>
+      <div class="pc-desc">A complete online store ready to accept payments and manage orders from day one.</div>
+      <div class="pc-price-wrap">
+        <div class="pc-original" id="pro-orig">Was $550</div>
+        <div class="pc-price"><span class="pc-curr" id="pro-curr">$</span><span class="pc-amount popular-price" id="pro-price">495</span></div>
+        <div class="pc-note" id="pro-note">One-time payment · No monthly fees</div>
+        <div class="pc-save">Save $55 this week!</div>
+      </div>
+      <a href="contact.html?plan=professional" class="pc-btn primary">Get Started →</a>
+      <div class="pc-timeline">Delivered in 10–14 days</div>
+      <div class="pc-divider"></div>
+      <ul class="pc-features">
+        <li><span class="check">✓</span> Unlimited products</li>
+        <li><span class="check">✓</span> Stripe + Razorpay + PayPal</li>
+        <li><span class="check">✓</span> Cart, wishlist & checkout</li>
+        <li><span class="check">✓</span> Order management system</li>
+        <li><span class="check">✓</span> Customer accounts & login</li>
+        <li><span class="check">✓</span> Full admin dashboard</li>
+        <li><span class="check">✓</span> Email order notifications</li>
+        <li><span class="check">✓</span> Coupon & discount system</li>
+        <li><span class="check">✓</span> 30-day free support</li>
+      </ul>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="price-card reveal">
+      <div class="pc-tier">Premium</div>
+      <div class="pc-name">Custom Web App</div>
+      <div class="pc-desc">A fully custom Django web application built around your unique business logic.</div>
+      <div class="pc-price-wrap">
+        <div class="pc-original" id="prem-orig">Was $990</div>
+        <div class="pc-price"><span class="pc-curr" id="prem-curr">$</span><span class="pc-amount" id="prem-price">891</span></div>
+        <div class="pc-note" id="prem-note">Starting price · Final quote after consultation</div>
+        <div class="pc-save">Save $99 this week!</div>
+      </div>
+      <a href="contact.html?plan=premium" class="pc-btn outline">Get a Quote →</a>
+      <div class="pc-timeline">Delivered in 14–21 days</div>
+      <div class="pc-divider"></div>
+      <ul class="pc-features">
+        <li><span class="check">✓</span> Everything in Professional</li>
+        <li><span class="check">✓</span> Custom business logic</li>
+        <li><span class="check">✓</span> REST API development</li>
+        <li><span class="check">✓</span> Advanced user roles</li>
+        <li><span class="check">✓</span> Analytics & reporting</li>
+        <li><span class="check">✓</span> 3rd party integrations</li>
+        <li><span class="check">✓</span> Performance optimization</li>
+        <li><span class="check">✓</span> Deployment assistance</li>
+        <li><span class="check">✓</span> 45-day free support</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ADD-ONS -->
+<div class="addons">
+  <div class="eyebrow reveal">Add-Ons</div>
+  <h2 style="font-family:var(--font-d);font-size:2.5rem;font-weight:900;letter-spacing:-1px" class="reveal">Supercharge your <em>project</em></h2>
+  <div class="addons-grid">
+    <div class="addon-card reveal">
+      <div class="addon-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
+      <div class="addon-name">Express Delivery</div>
+      <p class="addon-desc">Need it faster? Get your project delivered in half the time.</p>
+      <div class="addon-price">+ $49</div>
+    </div>
+    <div class="addon-card reveal">
+      <div class="addon-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>
+      <div class="addon-name">Email Marketing Setup</div>
+      <p class="addon-desc">Mailchimp or SendGrid integration with welcome email flows.</p>
+      <div class="addon-price">+ $39</div>
+    </div>
+    <div class="addon-card reveal">
+      <div class="addon-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg></div>
+      <div class="addon-name">Advanced SEO</div>
+      <p class="addon-desc">Full on-page SEO, sitemap, schema markup and Google Search Console setup.</p>
+      <div class="addon-price">+ $59</div>
+    </div>
+    <div class="addon-card reveal">
+      <div class="addon-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v6c0 5 3.9 9.7 9 11 5.1-1.3 9-6 9-11V7z"/><polyline points="9,12 11,14 15,10"/></svg></div>
+      <div class="addon-name">Extended Support</div>
+      <p class="addon-desc">3-month support package — bug fixes, updates, and priority responses.</p>
+      <div class="addon-price">+ $79</div>
+    </div>
+  </div>
+</div>
+
+<!-- GUARANTEE -->
+<div class="guarantee reveal">
+  <div class="g-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v6c0 5 3.9 9.7 9 11 5.1-1.3 9-6 9-11V7z"/><polyline points="9,12 11,14 15,10"/></svg></div>
+  <div>
+    <div class="g-title">100% Satisfaction Guarantee</div>
+    <p class="g-text">Not happy with the result? I'll revise until you are — or I'll refund you. Simple as that. I've built my reputation on making clients happy, not just making websites.</p>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <div class="eyebrow reveal">FAQ</div>
+  <h2 style="font-family:var(--font-d);font-size:2.5rem;font-weight:900;letter-spacing:-1px" class="reveal">Common <em>questions</em></h2>
+  <div class="faq-grid">
+    <div class="faq-item reveal">
+      <div class="faq-q">Do I need to pay the full amount upfront? <span class="faq-icon">?</span></div>
+      <p class="faq-a">No. I work with a 50% upfront payment and 50% on delivery. This protects both of us and keeps things fair.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Can I request changes after delivery? <span class="faq-icon">?</span></div>
+      <p class="faq-a">Yes! All packages include free revisions during development. After delivery, you get free support (15–45 days depending on plan) for any issues.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">How do we communicate during the project? <span class="faq-icon">?</span></div>
+      <p class="faq-a">Primarily via WhatsApp for quick updates and email for documents. I provide daily progress updates so you're never in the dark.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Will I own the code after delivery? <span class="faq-icon">?</span></div>
+      <p class="faq-a">100% yes. Once the project is paid for, all code belongs to you. I'll also hand over the full source code and deployment instructions.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">Do you offer hosting? <span class="faq-icon">?</span></div>
+      <p class="faq-a">I don't provide hosting myself, but I'll help you set up on affordable platforms like Railway, Render, or a VPS. I handle the full deployment for you.</p>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q">What if my project is more complex? <span class="faq-icon">?</span></div>
+      <p class="faq-a">No problem. The Premium plan is a starting price. After a free consultation call, I'll give you a custom quote based on your exact requirements.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">Creative<span>_Mind</span></a>
+  <p>© 2025 Creative_Mind · Made with ❤️ in India</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="portfolio.html">Portfolio</a>
+    <a href="pricing.html">Pricing</a><a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(e=>{e.forEach((el,i)=>{if(el.isIntersecting)setTimeout(()=>el.target.classList.add('visible'),i*80)})},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // Countdown — end of this week (Sunday 23:59:59)
+  function getWeekEnd(){
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun
+    const daysUntilSun = day===0 ? 7 : 7-day;
+    const end = new Date(now);
+    end.setDate(now.getDate()+daysUntilSun);
+    end.setHours(23,59,59,0);
+    return end;
+  }
+  const endDate = getWeekEnd();
+  function updateCountdown(){
+    const now = new Date();
+    const diff = endDate - now;
+    if(diff<=0){document.querySelector('.urgency-bar').style.display='none';return}
+    const d=Math.floor(diff/86400000);
+    const h=Math.floor((diff%86400000)/3600000);
+    const m=Math.floor((diff%3600000)/60000);
+    const s=Math.floor((diff%60000)/1000);
+    document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+  }
+  updateCountdown(); setInterval(updateCountdown,1000);
+
+  // Currency toggle
+  let isINR = false;
+  const rates = {
+    starter:  {usd:198, inr:16500, orig_usd:'Was $220', orig_inr:'Was ₹18,300'},
+    pro:      {usd:495, inr:41200, orig_usd:'Was $550', orig_inr:'Was ₹45,800'},
+    prem:     {usd:891, inr:74100, orig_usd:'Was $990', orig_inr:'Was ₹82,300'},
+  };
+  function toggleCurrency(){
+    isINR = !isINR;
+    document.getElementById('currToggle').classList.toggle('on',isINR);
+    document.getElementById('lbl-usd').classList.toggle('active',!isINR);
+    document.getElementById('lbl-inr').classList.toggle('active',isINR);
+    const sym = isINR ? '₹' : '$';
+    ['starter','pro','prem'].forEach(k=>{
+      const d=rates[k];
+      document.getElementById(k+'-curr').textContent=sym;
+      document.getElementById(k+'-price').textContent=isINR?d.inr.toLocaleString('en-IN'):d.usd;
+      document.getElementById(k+'-orig').textContent=isINR?d.orig_inr:d.orig_usd;
+      document.getElementById(k+'-note').textContent=isINR?'One-time payment · No hidden fees':'One-time payment · No hidden fees';
+    });
+  }
+document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible","in"));
+</script>
+</body>
+</html>

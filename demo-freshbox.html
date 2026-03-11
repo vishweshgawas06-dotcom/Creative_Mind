@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FreshBox — Organic Grocery Subscription</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Fraunces:ital,wght@0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f0f7f0;--white:#fff;--dark:#1a2e1a;--border:#d4e8d4;--text:#1a2e1a;--text2:#3d5a3d;--muted:#7a9a7a;--accent:#3d8b3d;--accent2:#f59e0b;--light:#e8f5e8;--font-d:'Fraunces',serif;--font-b:'Nunito',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font-b);overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(240,247,240,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 3rem;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--font-d);font-size:1.5rem;font-weight:700;color:var(--dark);text-decoration:none}.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2.5rem;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:0.88rem;font-weight:600;transition:color 0.2s}.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;border:none;padding:0.65rem 1.5rem;font-family:var(--font-b);font-size:0.85rem;font-weight:700;cursor:pointer;border-radius:100px;transition:all 0.2s}
+.nav-cta:hover{background:#2d6e2d;transform:scale(1.02)}
+.hero{padding:8rem 3rem 4rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;min-height:90vh}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(61,139,61,0.1);border:1px solid rgba(61,139,61,0.2);padding:0.4rem 1rem;border-radius:100px;font-size:0.75rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;letter-spacing:0.5px}
+.hero-badge span{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+.hero h1{font-family:var(--font-d);font-size:4rem;font-weight:700;line-height:1.1;margin-bottom:1.25rem;color:var(--dark)}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{color:var(--text2);line-height:1.8;font-size:0.95rem;margin-bottom:2rem;max-width:440px}
+.hero-trust{display:flex;align-items:center;gap:1.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--muted);font-weight:600}
+.trust-item svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero-cta{display:flex;gap:1rem;align-items:center}
+.btn-hero{background:var(--accent);color:#fff;border:none;padding:1rem 2.2rem;font-family:var(--font-b);font-size:0.9rem;font-weight:700;cursor:pointer;border-radius:100px;transition:all 0.2s;text-decoration:none;display:inline-block}
+.btn-hero:hover{background:#2d6e2d;transform:scale(1.02)}
+.btn-plain{color:var(--accent);font-size:0.88rem;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:0.3rem}
+.hero-right{position:relative}
+.box-visual{background:var(--white);border:2px solid var(--border);border-radius:20px;padding:2rem;box-shadow:0 20px 60px rgba(61,139,61,0.1)}
+.box-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.box-name{font-family:var(--font-d);font-size:1.3rem;font-weight:700}
+.box-badge{background:var(--accent);color:#fff;font-size:0.7rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:100px}
+.box-items{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin-bottom:1.5rem}
+.box-item{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:0.85rem;text-align:center;cursor:pointer;transition:all 0.2s}
+.box-item:hover{border-color:var(--accent);transform:scale(1.04)}
+.box-item svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;margin-bottom:0.4rem}
+.box-item-name{font-size:0.72rem;font-weight:700;color:var(--text)}
+.box-item-qty{font-size:0.65rem;color:var(--muted)}
+.box-footer{border-top:1px solid var(--border);padding-top:1.25rem;display:flex;align-items:center;justify-content:space-between}
+.box-price{font-family:var(--font-d);font-size:1.6rem;font-weight:700;color:var(--accent)}
+.box-freq{font-size:0.75rem;color:var(--muted)}
+.sub-btn{background:var(--accent);color:#fff;border:none;padding:0.75rem 1.5rem;font-family:var(--font-b);font-size:0.82rem;font-weight:700;cursor:pointer;border-radius:100px;transition:all 0.2s}
+.sub-btn:hover{background:#2d6e2d}
+.plans{padding:5rem 3rem;background:var(--white)}
+.sec-label{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:0.75rem;text-align:center}
+.sec-h{font-family:var(--font-d);font-size:3rem;font-weight:700;text-align:center;margin-bottom:0.75rem;line-height:1.1}
+.sec-h em{font-style:italic;color:var(--accent)}
+.sec-sub{text-align:center;color:var(--muted);font-size:0.9rem;margin-bottom:3rem}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.plan-card{border:2px solid var(--border);border-radius:16px;padding:2rem;position:relative;transition:all 0.3s;cursor:pointer}
+.plan-card:hover,.plan-card.featured{border-color:var(--accent);box-shadow:0 12px 40px rgba(61,139,61,0.12)}
+.plan-card.featured{background:linear-gradient(160deg,var(--light),var(--white))}
+.plan-popular{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;font-size:0.68rem;font-weight:700;padding:0.25rem 0.85rem;border-radius:100px;white-space:nowrap;letter-spacing:0.5px}
+.plan-icon{width:52px;height:52px;background:var(--light);border:1.5px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+.plan-icon svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.plan-name{font-family:var(--font-d);font-size:1.3rem;font-weight:700;margin-bottom:0.35rem}
+.plan-desc{font-size:0.8rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+.plan-price{font-family:var(--font-d);font-size:2.5rem;font-weight:700;color:var(--accent);margin-bottom:0.2rem}
+.plan-price span{font-size:1rem;color:var(--muted)}
+.plan-freq{font-size:0.75rem;color:var(--muted);margin-bottom:1.5rem}
+.plan-features{list-style:none;margin-bottom:1.75rem;display:flex;flex-direction:column;gap:0.6rem}
+.plan-features li{display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text2)}
+.plan-features li svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.plan-btn{width:100%;background:var(--accent);color:#fff;border:none;padding:0.85rem;font-family:var(--font-b);font-size:0.85rem;font-weight:700;cursor:pointer;border-radius:100px;transition:all 0.2s}
+.plan-btn:hover{background:#2d6e2d}
+.plan-btn.outline{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.plan-btn.outline:hover{background:var(--accent);color:#fff}
+footer{background:var(--dark);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.ft-logo{font-family:var(--font-d);font-size:1.3rem;color:#fff;text-decoration:none}.ft-logo span{color:#6dbf6d}
+.ft-copy{font-size:0.75rem;color:rgba(255,255,255,0.3)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--dark);color:#fff;padding:0.75rem 1.5rem;font-size:0.82rem;border-radius:100px;opacity:0;transition:all 0.3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.demo-badge{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--accent);color:#fff;font-size:0.7rem;padding:0.5rem 1rem;z-index:999;border-radius:100px}
+@media(max-width:900px){nav{padding:0 1.5rem}.hero{grid-template-columns:1fr;padding:6rem 1.5rem 2rem;gap:2rem}.hero h1{font-size:2.5rem}.plans,.hero{padding-left:1.5rem;padding-right:1.5rem}.plans-grid{grid-template-columns:1fr}.box-items{grid-template-columns:repeat(2,1fr)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="logo">Fresh<span>Box</span></a>
+  <ul class="nav-links"><li><a href="#plans">Plans</a></li><li><a href="#">How It Works</a></li><li><a href="#">Recipes</a></li><li><a href="#">About</a></li></ul>
+  <button class="nav-cta" onclick="showToast('Starting your subscription...')">Get Started</button>
+</nav>
+<section class="hero">
+  <div>
+    <div class="hero-badge"><span></span>100% Organic · Farm Fresh</div>
+    <h1>Fresh From<br/>Farm to Your<br/><em>Doorstep</em></h1>
+    <p class="hero-sub">Weekly curated boxes of seasonal organic vegetables, fruits, and pantry staples. Sourced directly from certified farms across India.</p>
+    <div class="hero-trust">
+      <div class="trust-item"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>No pesticides</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Same-day harvest</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Skip or cancel anytime</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#plans" class="btn-hero">Choose Your Box</a>
+      <a href="#" class="btn-plain" onclick="showToast('See what's inside this week');return false">See this week's box →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="box-visual">
+      <div class="box-header"><div class="box-name">This Week's Box</div><div class="box-badge">Family Box</div></div>
+      <div class="box-items">
+        <div class="box-item" onclick="showToast('Spinach — 500g · Organic')"><svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 22H5.81c.8-3 1.34-5.2 2.4-7C10.61 19 13.8 20 18 18c3.5-1 6-5 4-12z"/></svg><div class="box-item-name">Spinach</div><div class="box-item-qty">500g</div></div>
+        <div class="box-item" onclick="showToast('Tomatoes — 1kg · Farm Fresh')"><svg viewBox="0 0 24 24"><circle cx="12" cy="14" r="7"/><path d="M12 7V3M9 5l3 2 3-2"/></svg><div class="box-item-name">Tomatoes</div><div class="box-item-qty">1 kg</div></div>
+        <div class="box-item" onclick="showToast('Bananas — 6 pcs · Organic')"><svg viewBox="0 0 24 24"><path d="M3 6c0 0 2.5-3 7-3 4.5 0 8 2 9 7s-1.5 8-5 9"/><path d="M3 6c1 4 2 6 5 8"/></svg><div class="box-item-name">Bananas</div><div class="box-item-qty">6 pcs</div></div>
+        <div class="box-item" onclick="showToast('Carrots — 500g · Organic')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v4M7.5 3.5l2 2M16.5 3.5l-2 2"/></svg><div class="box-item-name">Carrots</div><div class="box-item-qty">500g</div></div>
+        <div class="box-item" onclick="showToast('Apples — 4 pcs · Himachali')"><svg viewBox="0 0 24 24"><path d="M12 20c-4.4 0-8-3.6-8-8 0-2.8 1.4-5.2 3.6-6.7C9 4.3 10.4 4 12 4s3 .3 4.4 1.3C18.6 6.8 20 9.2 20 12c0 4.4-3.6 8-8 8z"/><path d="M12 4V2"/></svg><div class="box-item-name">Apples</div><div class="box-item-qty">4 pcs</div></div>
+        <div class="box-item" onclick="showToast('Coriander — 100g bunches')"><svg viewBox="0 0 24 24"><path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg><div class="box-item-name">Coriander</div><div class="box-item-qty">2 bunches</div></div>
+      </div>
+      <div class="box-footer">
+        <div><div class="box-price">₹899<span>/week</span></div><div class="box-freq">Delivered every Tuesday</div></div>
+        <button class="sub-btn" onclick="showToast('Subscribing to Family Box...')">Subscribe →</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="plans" id="plans">
+  <div class="sec-label">Subscription Plans</div>
+  <h2 class="sec-h">Choose Your <em>Perfect Box</em></h2>
+  <p class="sec-sub">All plans include free delivery, flexible scheduling, and our freshness guarantee.</p>
+  <div class="plans-grid">
+    <div class="plan-card" onclick="showToast('Solo Box selected — ₹449/week')">
+      <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="plan-name">Solo Box</div>
+      <div class="plan-desc">Perfect for individuals. 6-8 items of seasonal vegetables and fruits.</div>
+      <div class="plan-price">₹449<span>/week</span></div>
+      <div class="plan-freq">Billed ₹1,796/month</div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>6-8 seasonal items</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Free weekly delivery</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Freshness guarantee</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Pause anytime</li>
+      </ul>
+      <button class="plan-btn outline" onclick="event.stopPropagation();showToast('Solo Box — starting subscription')">Get Solo Box</button>
+    </div>
+    <div class="plan-card featured" onclick="showToast('Couple Box selected — ₹699/week')">
+      <div class="plan-popular">Most Popular</div>
+      <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
+      <div class="plan-name">Couple Box</div>
+      <div class="plan-desc">Ideal for two. 10-12 items with extra fruits and a herb bundle.</div>
+      <div class="plan-price">₹699<span>/week</span></div>
+      <div class="plan-freq">Billed ₹2,796/month</div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>10-12 seasonal items</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Weekly herb bundle</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Recipe cards included</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Priority delivery slot</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Skip or cancel anytime</li>
+      </ul>
+      <button class="plan-btn" onclick="event.stopPropagation();showToast('Couple Box — starting subscription')">Get Couple Box</button>
+    </div>
+    <div class="plan-card" onclick="showToast('Family Box selected — ₹899/week')">
+      <div class="plan-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="plan-name">Family Box</div>
+      <div class="plan-desc">For 4+ people. 16-20 items with seasonal specials and pantry staples.</div>
+      <div class="plan-price">₹899<span>/week</span></div>
+      <div class="plan-freq">Billed ₹3,596/month</div>
+      <ul class="plan-features">
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>16-20 seasonal items</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Pantry staples included</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Weekly recipes + tips</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Dedicated account manager</li>
+        <li><svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>Custom preferences</li>
+      </ul>
+      <button class="plan-btn outline" onclick="event.stopPropagation();showToast('Family Box — starting subscription')">Get Family Box</button>
+    </div>
+  </div>
+</section>
+<footer>
+  <a href="#" class="ft-logo">Fresh<span>Box</span></a>
+  <div style="display:flex;gap:2rem"><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">Plans</a><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">About</a><a href="#" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:0.8rem">Contact</a></div>
+  <div class="ft-copy">© 2025 FreshBox · Demo by Creative_Mind</div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="demo-badge">Demo by Creative_Mind</div>
+<script>function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2500)}</script>
+</body>
+</html>

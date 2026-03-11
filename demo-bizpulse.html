@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BizPulse — Business Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#0b0c10;--surface:#13141a;--surface2:#1c1e27;--border:#252730;--text:#f0f2f8;--text2:#8890b0;--muted:#50566e;--accent:#4ade80;--accent2:#818cf8;--red:#fb7185;--amber:#fbbf24;--font:'DM Sans',sans-serif;--mono:'DM Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--font);display:flex;min-height:100vh;overflow-x:hidden}
+.sidebar{width:210px;background:var(--surface);border-right:1px solid var(--border);position:fixed;top:0;left:0;bottom:0;display:flex;flex-direction:column}
+.s-top{padding:1.5rem;border-bottom:1px solid var(--border)}
+.s-logo{font-size:1.1rem;font-weight:700;display:flex;align-items:center;gap:0.5rem}
+.s-logo-icon{width:26px;height:26px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.s-logo-icon svg{width:13px;height:13px;stroke:#000;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.s-nav{padding:1.25rem 0.75rem;flex:1}
+.s-lbl{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);padding:0 0.75rem;margin-bottom:0.5rem;margin-top:1rem}
+.s-link{display:flex;align-items:center;gap:0.65rem;padding:0.6rem 0.75rem;border-radius:7px;color:var(--text2);font-size:0.8rem;font-weight:500;cursor:pointer;transition:all 0.2s;margin-bottom:0.1rem}
+.s-link:hover{background:var(--surface2);color:var(--text)}
+.s-link.active{background:rgba(74,222,128,0.1);color:var(--accent)}
+.s-link svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.s-user{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:0.75rem}
+.s-av{width:30px;height:30px;background:var(--accent2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff}
+.main{margin-left:210px;flex:1}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.p-title{font-size:1.1rem;font-weight:700}
+.tb-right{display:flex;align-items:center;gap:0.75rem}
+.tb-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:0.5rem 1rem;border-radius:8px;font-family:var(--font);font-size:0.78rem;outline:none;cursor:pointer}
+.export-btn{background:var(--accent);color:#000;border:none;padding:0.5rem 1.1rem;border-radius:8px;font-family:var(--font);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s}
+.export-btn:hover{background:#3dcf6e}
+.content{padding:1.5rem 2rem}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;cursor:pointer;transition:all 0.2s}
+.kpi:hover{border-color:var(--accent)}
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.75rem}
+.kpi-label{font-size:0.72rem;color:var(--text2);font-weight:500}
+.kpi-icon{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.kpi-icon svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.kpi-val{font-size:1.7rem;font-weight:700;margin-bottom:0.3rem;font-family:var(--mono)}
+.kpi-delta{font-size:0.72rem;font-weight:600}
+.chart-section{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-bottom:1rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.card-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:0.85rem;font-weight:600}
+.chart-body{padding:1.5rem}
+.bar-chart{display:flex;align-items:flex-end;gap:0.5rem;height:140px}
+.bc-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.4rem}
+.bc-bar{width:100%;border-radius:5px 5px 0 0;cursor:pointer;transition:all 0.2s;min-height:4px}
+.bc-bar:hover{filter:brightness(1.2)}
+.bc-label{font-size:0.62rem;color:var(--muted);font-family:var(--mono)}
+.donut-wrap{padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.donut-svg{width:120px;height:120px}
+.donut-legend{width:100%;display:flex;flex-direction:column;gap:0.5rem}
+.dl-item{display:flex;align-items:center;justify-content:space-between;font-size:0.76rem}
+.dl-left{display:flex;align-items:center;gap:0.5rem;color:var(--text2)}
+.dl-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.dl-val{font-weight:600;color:var(--text);font-family:var(--mono)}
+.table-card{margin-bottom:1rem}
+.table{width:100%;border-collapse:collapse}
+.table th{padding:0.75rem 1.25rem;text-align:left;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border)}
+.table td{padding:0.85rem 1.25rem;font-size:0.8rem;border-bottom:1px solid var(--border)}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--surface2);cursor:pointer}
+.trend-badge{display:inline-flex;align-items:center;gap:0.2rem;padding:0.2rem 0.5rem;border-radius:100px;font-size:0.68rem;font-weight:600}
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:0.75rem 1.25rem;font-size:0.8rem;border-radius:8px;opacity:0;transition:all 0.3s;z-index:999;transform:translateY(10px)}
+.toast.show{opacity:1;transform:translateY(0)}
+.demo-badge{position:fixed;bottom:1.5rem;left:225px;background:var(--accent);color:#000;font-size:0.7rem;padding:0.45rem 0.9rem;z-index:999;border-radius:4px;font-weight:600}
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0}.kpis{grid-template-columns:1fr 1fr}.chart-section{grid-template-columns:1fr}.demo-badge{left:1rem}}
+</style>
+</head>
+<body>
+<nav class="sidebar">
+  <div class="s-top"><div class="s-logo"><div class="s-logo-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>BizPulse</div></div>
+  <div class="s-nav">
+    <div class="s-lbl">Overview</div>
+    <div class="s-link active" onclick="showToast('Dashboard')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</div>
+    <div class="s-link" onclick="showToast('Analytics')"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>Analytics</div>
+    <div class="s-link" onclick="showToast('Reports')"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>Reports</div>
+    <div class="s-lbl">Channels</div>
+    <div class="s-link" onclick="showToast('Sales data')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg>Sales</div>
+    <div class="s-link" onclick="showToast('Marketing')"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Marketing</div>
+    <div class="s-link" onclick="showToast('Customers')"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Customers</div>
+    <div class="s-lbl">System</div>
+    <div class="s-link" onclick="showToast('Settings')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</div>
+  </div>
+  <div class="s-user"><div class="s-av">V</div><div><div style="font-size:0.8rem;font-weight:600">Vishwesh</div><div style="font-size:0.68rem;color:var(--muted)">Admin</div></div></div>
+</nav>
+<div class="main">
+  <div class="topbar">
+    <div><div class="p-title">Business Analytics</div><div style="font-size:0.72rem;color:var(--muted);margin-top:0.1rem">Last updated: just now</div></div>
+    <div class="tb-right">
+      <select class="tb-select" onchange="showToast('Period: '+this.options[this.selectedIndex].text)"><option>This Month</option><option>Last Month</option><option>Last 3 Months</option><option>Last Year</option></select>
+      <button class="export-btn" onclick="showToast('Exporting CSV report...')">Export CSV</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="kpis">
+      <div class="kpi" onclick="showToast('Revenue up 23% MoM')"><div class="kpi-top"><div class="kpi-label">Total Revenue</div><div class="kpi-icon" style="background:rgba(74,222,128,0.1)"><svg style="stroke:#4ade80" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></svg></div></div><div class="kpi-val" style="color:#4ade80">₹8.4L</div><div class="kpi-delta" style="color:#4ade80">↑ 23.4% vs last month</div></div>
+      <div class="kpi" onclick="showToast('Orders up 18% MoM')"><div class="kpi-top"><div class="kpi-label">Total Orders</div><div class="kpi-icon" style="background:rgba(129,140,248,0.1)"><svg style="stroke:#818cf8" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div></div><div class="kpi-val" style="color:#818cf8">1,284</div><div class="kpi-delta" style="color:#818cf8">↑ 18.2% vs last month</div></div>
+      <div class="kpi" onclick="showToast('Conversion rate 3.8%')"><div class="kpi-top"><div class="kpi-label">Conversion Rate</div><div class="kpi-icon" style="background:rgba(251,191,36,0.1)"><svg style="stroke:#fbbf24" viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div></div><div class="kpi-val" style="color:#fbbf24">3.8%</div><div class="kpi-delta" style="color:#4ade80">↑ 0.6% vs last month</div></div>
+      <div class="kpi" onclick="showToast('Avg order ₹654')"><div class="kpi-top"><div class="kpi-label">Avg Order Value</div><div class="kpi-icon" style="background:rgba(251,113,101,0.1)"><svg style="stroke:#fb7185" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div></div><div class="kpi-val" style="color:#fb7185">₹654</div><div class="kpi-delta" style="color:#4ade80">↑ 4.1% vs last month</div></div>
+    </div>
+    <div class="chart-section">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Revenue Trend (Sep – Mar)</div><div style="display:flex;gap:0.5rem"><span style="font-size:0.72rem;color:var(--muted)">Daily avg:</span><span style="font-size:0.72rem;font-family:var(--mono);color:var(--accent)">₹27,097</span></div></div>
+        <div class="chart-body"><div class="bar-chart">
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Sep: ₹4.2L')" style="height:50%;background:linear-gradient(180deg,#4ade80,rgba(74,222,128,0.2))"></div><div class="bc-label">Sep</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Oct: ₹5.1L')" style="height:61%;background:linear-gradient(180deg,#4ade80,rgba(74,222,128,0.2))"></div><div class="bc-label">Oct</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Nov: ₹6.8L')" style="height:80%;background:linear-gradient(180deg,#4ade80,rgba(74,222,128,0.2))"></div><div class="bc-label">Nov</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Dec: ₹7.5L — Peak Season')" style="height:89%;background:linear-gradient(180deg,#fbbf24,rgba(251,191,36,0.2))"></div><div class="bc-label">Dec</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Jan: ₹5.9L')" style="height:70%;background:linear-gradient(180deg,#4ade80,rgba(74,222,128,0.2))"></div><div class="bc-label">Jan</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Feb: ₹6.8L')" style="height:81%;background:linear-gradient(180deg,#4ade80,rgba(74,222,128,0.2))"></div><div class="bc-label">Feb</div></div>
+          <div class="bc-bar-wrap"><div class="bc-bar" onclick="showToast('Mar: ₹8.4L — Best Month!')" style="height:100%;background:linear-gradient(180deg,#818cf8,rgba(129,140,248,0.2))"></div><div class="bc-label">Mar</div></div>
+        </div></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Revenue by Channel</div></div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#252730" stroke-width="18"/>
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#4ade80" stroke-width="18" stroke-dasharray="88 132" stroke-dashoffset="0" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#818cf8" stroke-width="18" stroke-dasharray="44 176" stroke-dashoffset="-88" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#fbbf24" stroke-width="18" stroke-dasharray="22 198" stroke-dashoffset="-132" stroke-linecap="round"/>
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#fb7185" stroke-width="18" stroke-dasharray="26 194" stroke-dashoffset="-154" stroke-linecap="round"/>
+            <text x="50" y="46" text-anchor="middle" fill="#f0f2f8" font-size="12" font-weight="700" font-family="DM Mono">₹8.4L</text>
+            <text x="50" y="58" text-anchor="middle" fill="#8890b0" font-size="7">total</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="dl-item" onclick="showToast('Organic: ₹3.7L')"><div class="dl-left"><div class="dl-dot" style="background:#4ade80"></div>Organic</div><div class="dl-val">₹3.7L</div></div>
+            <div class="dl-item" onclick="showToast('Paid Ads: ₹1.9L')"><div class="dl-left"><div class="dl-dot" style="background:#818cf8"></div>Paid Ads</div><div class="dl-val">₹1.9L</div></div>
+            <div class="dl-item" onclick="showToast('Referral: ₹1.0L')"><div class="dl-left"><div class="dl-dot" style="background:#fbbf24"></div>Referral</div><div class="dl-val">₹1.0L</div></div>
+            <div class="dl-item" onclick="showToast('Direct: ₹1.1L')"><div class="dl-left"><div class="dl-dot" style="background:#fb7185"></div>Direct</div><div class="dl-val">₹1.1L</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card table-card">
+      <div class="card-head"><div class="card-title">Top Products This Month</div><button style="background:none;border:none;color:var(--accent);font-size:0.78rem;cursor:pointer;font-family:var(--font)" onclick="showToast('View all products')">View All</button></div>
+      <table class="table">
+        <thead><tr><th>Product</th><th>Category</th><th>Units Sold</th><th>Revenue</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr onclick="showToast('iPhone 16 Pro — #1 bestseller')"><td style="font-weight:600">iPhone 16 Pro</td><td style="color:var(--text2)">Smartphones</td><td style="font-family:var(--mono)">148</td><td style="font-family:var(--mono);color:var(--accent)">₹1,99,502</td><td><span class="trend-badge" style="background:rgba(74,222,128,0.1);color:#4ade80">↑ 34%</span></td></tr>
+          <tr onclick="showToast('Sony WH-1000XM5 — strong performance')"><td style="font-weight:600">Sony WH-1000XM5</td><td style="color:var(--text2)">Audio</td><td style="font-family:var(--mono)">312</td><td style="font-family:var(--mono);color:var(--accent)">₹77,969</td><td><span class="trend-badge" style="background:rgba(74,222,128,0.1);color:#4ade80">↑ 18%</span></td></tr>
+          <tr onclick="showToast('MacBook Air M3 — steady growth')"><td style="font-weight:600">MacBook Air M3</td><td style="color:var(--text2)">Laptops</td><td style="font-family:var(--mono)">67</td><td style="font-family:var(--mono);color:var(--accent)">₹76,983</td><td><span class="trend-badge" style="background:rgba(129,140,248,0.1);color:#818cf8">→ 2%</span></td></tr>
+          <tr onclick="showToast('Samsung S25 Ultra — declining')"><td style="font-weight:600">Samsung S25 Ultra</td><td style="color:var(--text2)">Smartphones</td><td style="font-family:var(--mono)">89</td><td style="font-family:var(--mono);color:var(--accent)">₹1,11,249</td><td><span class="trend-badge" style="background:rgba(251,113,101,0.1);color:#fb7185">↓ 8%</span></td></tr>
+          <tr onclick="showToast('Canon EOS R8 — new product rising')"><td style="font-weight:600">Canon EOS R8</td><td style="color:var(--text2)">Cameras</td><td style="font-family:var(--mono)">41</td><td style="font-family:var(--mono);color:var(--accent)">₹61,498</td><td><span class="trend-badge" style="background:rgba(74,222,128,0.1);color:#4ade80">↑ 56%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<div class="demo-badge">Demo by Creative_Mind</div>
+<script>function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),2500)}</script>
+</body>
+</html>
